@@ -41,10 +41,17 @@ public class PhoneBook {
     }
 
     public void remove(String name) {
+        map.remove(name);
     }
 
     public Boolean hasEntry(String name) {
-        return null;
+        if(map.containsKey(name)){return true;}
+        else {
+            for(List<String> list : map.values()){
+                if(list.contains(name)){return true;}
+            }
+        }
+        return false;
     }
 
     public List<String> lookup(String name) {
