@@ -1,22 +1,22 @@
 package com.zipcodewilmington.phonebook;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by leon on 1/23/18.
  */
 public class PhoneBook {
     private Map<String, List<String>> map;
+    private ArrayList<String> keys;
 
     public PhoneBook(Map<String, List<String>> map) {
         this.map = new HashMap<String, List<String>>();
+        this.keys = new ArrayList<String>();
     }
 
     public PhoneBook() {
         this(null);
+        this.keys = new ArrayList<String>();
     }
 
     public void add(String name, String phoneNumber) {
@@ -25,6 +25,7 @@ public class PhoneBook {
         } else {
             map.put(name, new ArrayList<String>());
             map.get(name).add(phoneNumber);
+            keys.add(name);
         }
     }
 
@@ -42,6 +43,7 @@ public class PhoneBook {
 
     public void remove(String name) {
         map.remove(name);
+        keys.remove(name);
     }
 
     public Boolean hasEntry(String name) {
@@ -59,11 +61,16 @@ public class PhoneBook {
     }
 
     public String reverseLookup(String phoneNumber)  {
-        return null;
+        for(Map.Entry<String, List<String>> entry : map.entrySet()){
+            for(String q : entry.getValue()){
+                if(q.equals(phoneNumber)){return entry.getKey();}
+            }
+        }
+        return "";
     }
 
     public List<String> getAllContactNames() {
-        return null;
+        return keys;
     }
 
     public Map<String, List<String>> getMap() {
